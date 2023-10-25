@@ -1,1 +1,1 @@
-/bookings
+/bookings/
