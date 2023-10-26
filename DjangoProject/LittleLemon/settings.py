@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # The settings for app updated for the Graded assessment
     'restaurant',
+    'reservation',
+    'LittleLemonAPI',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +62,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # The settings for templates updated for the Graded assessment
-        'DIRS': ['restaurant/templates' ],
+        'DIRS': ['templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,11 +84,14 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reservations',
-        'HOST' : '127.0.0.1',
-        'PORT' : '3306',
-        'USER' : 'root',
-        # 'PASSWORD' : 'root@123',
+        'NAME': 'littlelemon',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': '',
+        'OPTIONS': {
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
@@ -125,13 +133,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 # The settings for static files have been updated for the Graded assessment
-STATIC_URL = 'restaurant/static/'
+STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    "restaurant/static",
+    BASE_DIR / "static",
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DJOSER = {
+    "USER_ID_FIELD":"username"
+    }
